@@ -1,1 +1,21 @@
+version: 2.1
 
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:21
+
+jobs:
+  build:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm test
+      - run:
+          name: Build project
+          command: npm run build
