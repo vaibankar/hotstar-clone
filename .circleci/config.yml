@@ -45,14 +45,8 @@ jobs:
               -Dsonar.sources=. \
               -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
-           
-  upload_to_nexus:
-    docker:
-      - image: sonatype/nexus-cli:latest
-    steps:
-      - checkout
-           
-      # Upload the artifact to Nexus
+         
+    # Upload the artifact to Nexus
       - run:
           name: Upload to Nexus
           command: |
@@ -62,7 +56,25 @@ jobs:
               --artifact="bundle.js" \
               --username=$NEXUS_USERNAME \
               --password=$NEXUS_PASSWORD \
-              --url=$NEXUS_URL           
+              --url=$NEXUS_URL         
+ 
+  # upload_to_nexus:
+  #   docker:
+  #     - image: sonatype/nexus-cli:latest
+  #   steps:
+  #     - checkout
+           
+  #     # Upload the artifact to Nexus
+  #     - run:
+  #         name: Upload to Nexus
+  #         command: |
+  #           java -jar nexus-iq-cli-1.106.0-02.jar upload \
+  #             --repository=$NEXUS_URL/repository/$NEXUS_REPOSITORY/ \
+  #             --dir="dist/artifacts" \
+  #             --artifact="bundle.js" \
+  #             --username=$NEXUS_USERNAME \
+  #             --password=$NEXUS_PASSWORD \
+  #             --url=$NEXUS_URL           
     
   
 workflows:
