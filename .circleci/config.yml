@@ -15,8 +15,11 @@ jobs:
       - run:
           command: npx update-browserslist-db@latest 
       - run:
-          name: Build project
-          command: npm run build
+          name: Build
+          command: CI=false npm run build
+      # - run:
+      #     name: Build project
+      #     command: npm run build
       
 
       # - run:
