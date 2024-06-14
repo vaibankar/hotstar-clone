@@ -19,4 +19,6 @@ jobs:
       - run:
           name: Build project
           command: npx update-browserslist-db@latest
+      - run:
+          name: Build project
           command: npm run build
