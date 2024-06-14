@@ -22,7 +22,13 @@ jobs:
       - store_artifacts:
           path: dist/artifacts
           destination: artifacts    
-       
+      
+      # Install Nexus CLI
+      - run:
+          name: Install Nexus CLI
+          command: |
+            curl -O https://download.sonatype.com/nexus/clm/scanner/cli/nexus-iq-cli-1.106.0-02.jar
+      
                   
   sonarQube:
     executor: node-executor
@@ -50,7 +56,7 @@ jobs:
       - run:
           name: Upload to Nexus
           command: |
-            nexus-cli upload \
+            java -jar nexus-iq-cli-1.106.0-02.jar upload \
               --repository=$NEXUS_URL/repository/$NEXUS_REPOSITORY/ \
               --dir="dist/artifacts" \
               --artifact="bundle.js" \
