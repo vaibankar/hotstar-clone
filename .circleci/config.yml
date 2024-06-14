@@ -18,8 +18,8 @@ jobs:
           name: Build
           command: CI=false npm run build
       
-    sonarQube:    
-      docker:
+  sonarQube:    
+    docker:
       - image: newtmitch/sonar-scanner:latest
       - run:
           name: Run SonarQube Analysis
