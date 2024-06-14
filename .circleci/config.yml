@@ -18,19 +18,14 @@ jobs:
       - run:
           name: Build
           command: CI=false npm run build
-      - run:
-          name: List project directory
-          command: ls -l
-      - run:
-          name: List build output directory
-          command: ls -l build 
+      
          
       - run:
          name: Archive build artifacts
          command: |
            mkdir -p build/artifacts
            # Replace 'build' with your actual build output directory if different
-           cp -r  build/static/js/* build/static/js/artifacts/
+           cp -r  build/static/js/* build/artifacts/
            cd build
            zip -r artifact.zip artifacts
            cd ..
@@ -39,7 +34,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build/static/js/artifact.zip
+            - build/artifact.zip
       
   sonarQube:
     executor: node-executor
