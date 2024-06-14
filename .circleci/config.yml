@@ -17,12 +17,8 @@ jobs:
       - run:
           name: Build
           command: CI=false npm run build
-     
-  sonarQube:
-    docker:
-      - image: circleci/node:14.17
-    steps:
-      - checkout
+      
+       
       - run:
           name: Install SonarQube Scanner
           command: npm install -g sonar-scanner
