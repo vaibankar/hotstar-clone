@@ -30,7 +30,7 @@ jobs:
          command: |
            mkdir -p build/artifacts
            # Replace 'build' with your actual build output directory if different
-           cp -r  build/static/js/* build/artifacts/
+           cp -r  build/static/js/* build/static/js/artifacts/
            cd build
            zip -r artifact.zip artifacts
            cd ..
@@ -39,7 +39,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - build/artifact.zip
+            - build/static/js/artifact.zip
       
   sonarQube:
     executor: node-executor
@@ -68,7 +68,7 @@ jobs:
           name: Upload artifact to Nexus
           command: |
             curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD \
-            --upload-file build/artifact.zip \
+            --upload-file build/static/js/artifact.zip \
             $NEXUS_URL/repository/$NEXUS_REPOSITORY/artifact.zip 
 
 workflows:
