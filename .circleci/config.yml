@@ -23,9 +23,13 @@ jobs:
          name: Archive build artifacts
          command: |
            mkdir -p build/artifacts
-           # Adjust the path according to your build output
+           # Replace 'dist' with your actual build output directory
            cp -r build/static/js/* build/artifacts/
-           zip -r build/artifact.zip build/artifacts
+           cd build/artifacts
+           zip -r ../artifact.zip .
+           cd ../..
+           echo "Contents of the build directory after zipping:"
+           ls -l build
       - persist_to_workspace:
           root: .
           paths:
@@ -51,6 +55,9 @@ jobs:
     executor: node-executor
     steps:
       - checkout
+       - run:
+          name: Verify artifact
+          command: ls -l build/artifact.zip
       - run:
           name: Upload artifact to Nexus
           command: |
