@@ -54,7 +54,7 @@ workflows:
       - sonarQube:
           requires:
             - build
-            - nexus:
-                requires:
-                  - build
+      - nexus:
+          requires:
+            - build
             
