@@ -22,8 +22,7 @@ jobs:
           name: Build
           command: CI=false npm run build
       
-  sonarQube:
-    
+  sonarQube:  
     docker:
       - image: newtmitch/sonar-scanner:latest
     executor: node-java-executor  
