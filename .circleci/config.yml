@@ -10,7 +10,7 @@ executors:
       - image: circleci/openjdk:17-node-browsers      
 jobs:
   build:
-    executor: node-executor
+    executor: node-java-executor
     steps:
       - checkout
       - run:
@@ -23,7 +23,7 @@ jobs:
           command: CI=false npm run build
       
   sonarQube:
-    executor: node-java-executo
+    executor: node-java-executor
     docker:
       - image: newtmitch/sonar-scanner:latest
       
