@@ -49,7 +49,6 @@ jobs:
      steps:
        - checkout
     # Upload the artifact to Nexus
-    
       - run:
           name: Upload to Nexus
           command: |
