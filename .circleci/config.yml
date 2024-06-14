@@ -68,7 +68,7 @@ workflows:
       - sonarQube:
           requires:
             - build
-      - upload_to_nexus:
+      - nexus:
           requires:
             - sonarQube
             
