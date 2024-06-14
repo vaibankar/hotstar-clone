@@ -19,13 +19,13 @@ jobs:
           name: Build
           command: CI=false npm run build
          
-       - run:
-          name: Archive build artifacts
-          command: |
-            mkdir -p build/artifacts
-            # Adjust the path according to your build output
-            cp -r dist/* build/artifacts/
-            zip -r build/artifact.zip build/artifacts
+      - run:
+         name: Archive build artifacts
+         command: |
+           mkdir -p build/artifacts
+           # Adjust the path according to your build output
+           cp -r dist/* build/artifacts/
+           zip -r build/artifact.zip build/artifacts
       - persist_to_workspace:
           root: .
           paths:
