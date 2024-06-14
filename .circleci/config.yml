@@ -1,16 +1,13 @@
 version: 2.1
 
-# executors:
-#   node-executor:
-#     docker:
-#       - image: circleci/node:16
 executors:
-  node-java-executor:
+  node-executor:
     docker:
-      - image: circleci/openjdk:17-node-browsers      
+      - image: circleci/node:16
+     
 jobs:
   build:
-    executor: node-java-executor
+    executor: node-executor
     steps:
       - checkout
       - run:
@@ -23,10 +20,9 @@ jobs:
           command: CI=false npm run build
       
   sonarQube:
-    executor: node-java-executor
+    executor: node-executor
     docker:
-      - image: newtmitch/sonar-scanner:latest
-      
+      - image: newtmitch/sonar-scanner:latest 
     steps:
       - checkout  
       - run:
