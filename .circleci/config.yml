@@ -43,20 +43,20 @@ jobs:
   upload_to_nexus:
    # docker:
    #   - image: sonatype/nexus-cli:latest
-   steps:
-     - checkout
+    steps:
+      - checkout
      
-     # Upload the artifact to Nexus
-     - run:
-         name: Upload to Nexus
-         command: |
-           nexus-cli upload \
-             --repository=$NEXUS_URL/repository/$NEXUS_REPOSITORY/ \
-             --dir="dist/artifacts" \
-             --artifact="bundle.js" \
-             --username=$NEXUS_USERNAME \
-             --password=$NEXUS_PASSWORD \
-             --url=$NEXUS_URL           
+      # Upload the artifact to Nexus
+      - run:
+          name: Upload to Nexus
+          command: |
+            nexus-cli upload \
+              --repository=$NEXUS_URL/repository/$NEXUS_REPOSITORY/ \
+              --dir="dist/artifacts" \
+              --artifact="bundle.js" \
+              --username=$NEXUS_USERNAME \
+              --password=$NEXUS_PASSWORD \
+              --url=$NEXUS_URL           
     
   
 workflows:
