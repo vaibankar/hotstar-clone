@@ -47,8 +47,8 @@ jobs:
               -Dsonar.token=$SONAR_TOKEN
            
   upload_to_nexus:
-    docker:
-      - image: sonatype/nexus-cli:latest
+    # docker:
+    #   - image: sonatype/nexus-cli:latest
     steps:
       - checkout
            
