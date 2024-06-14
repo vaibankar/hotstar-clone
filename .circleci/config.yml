@@ -24,7 +24,7 @@ jobs:
          command: |
            mkdir -p build/artifacts
            # Adjust the path according to your build output
-           cp -r dist/* build/artifacts/
+           cp -r build/static/js/* build/artifacts/
            zip -r build/artifact.zip build/artifacts
       - persist_to_workspace:
           root: .
