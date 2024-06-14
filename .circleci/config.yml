@@ -18,24 +18,14 @@ jobs:
       - run:
           name: Build
           command: CI=false npm run build
-      
-         
       - run:
-         name: Archive build artifacts
-         command: |
-           mkdir -p build/artifacts
-           # Replace 'build' with your actual build output directory if different
-           cp -r  build/static/js/* build/artifacts/
-           cd build
-           zip -r artifact.zip artifacts
-           cd ..
-           echo "Contents of the build directory after zipping:"
-           ls -l build
+         name: Archive the artifact
+         command: tar -czvf circle-ci-project.tar.gz dist/
       - persist_to_workspace:
           root: .
           paths:
-            - build/artifact.zip
-      
+            - circle-ci-project.tar.gz
+                  
   sonarQube:
     executor: node-executor
     docker:
@@ -55,16 +45,13 @@ jobs:
   nexus:
     executor: node-executor
     steps:
-      - checkout
-      - run:
-         name: Verify artifact
-         command: ls -l build/artifact.zip
+      - attach_workspace:
+          at: /workspace
       - run:
           name: Upload artifact to Nexus
           command: |
-            curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD \
-            --upload-file build/static/js/artifact.zip \
-            $NEXUS_URL/repository/$NEXUS_REPOSITORY/artifact.zip 
+            curl -v -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file /workspace/circle-ci-project.tar.gz \
+            $NEXUS_URL/repository/$NEXUS_REPOSITORY/circle-ci-project.tar.gz 
 
 workflows:
   version: 2.1
