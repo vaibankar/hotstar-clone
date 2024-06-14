@@ -18,10 +18,9 @@ jobs:
           name: Build
           command: CI=false npm run build
       
-       
-      - run:
-          name: Install SonarQube Scanner Locally
-          command: npm install sonar-scanner
+    sonarQube:    
+      docker:
+      - image: newtmitch/sonar-scanner:latest
       - run:
           name: Run SonarQube Analysis
           command: |
