@@ -55,15 +55,15 @@ jobs:
     executor: node-executor
     steps:
       - checkout
-       - run:
-          name: Verify artifact
-          command: ls -l build/artifact.zip
-       - run:
-           name: Upload artifact to Nexus
-           command: |
-             curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD \
-             --upload-file build/artifact.zip \
-             $NEXUS_URL/repository/$NEXUS_REPOSITORY/artifact.zip 
+      - run:
+         name: Verify artifact
+         command: ls -l build/artifact.zip
+      - run:
+          name: Upload artifact to Nexus
+          command: |
+            curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD \
+            --upload-file build/artifact.zip \
+            $NEXUS_URL/repository/$NEXUS_REPOSITORY/artifact.zip 
 
 workflows:
   version: 2.1
