@@ -16,7 +16,7 @@ jobs:
       - run:
           command: npx update-browserslist-db@latest 
       - run:
-          name: Build
+          name: Build 
           command: CI=false npm run build
       - run:
          name: Archive the artifact
