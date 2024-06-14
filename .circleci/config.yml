@@ -21,6 +21,8 @@ jobs:
   sonarQube:    
     docker:
       - image: newtmitch/sonar-scanner:latest
+    steps:
+      - checkout  
       - run:
           name: Run SonarQube Analysis
           command: |
