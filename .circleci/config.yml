@@ -35,7 +35,16 @@ jobs:
               -Dsonar.host.url=http://107.22.46.30:9000 \
               -Dsonar.token=$SONAR_TOKEN
               
-
+  nexus:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Upload artifact to Nexus
+          command: |
+            curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD \
+            --upload-file build/artifact.zip \
+            $NEXUS_URL/repository/$NEXUS_REPOSITORY/artifact.zip 
 
 workflows:
   version: 2.1
@@ -45,4 +54,7 @@ workflows:
       - sonarQube:
           requires:
             - build
+            - nexus:
+                requires:
+                  - build
             
