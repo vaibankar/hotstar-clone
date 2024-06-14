@@ -34,5 +34,12 @@ jobs:
               -Dsonar.login=$SONAR_TOKEN
 
 
-
+workflows:
+  version: 2.1
+  build_and_analyze:
+    jobs:
+      - build
+      - sonarQube:
+          requires:
+            - build
             
