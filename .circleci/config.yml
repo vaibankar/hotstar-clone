@@ -47,6 +47,7 @@ jobs:
               -Dsonar.token=$SONAR_TOKEN
          
     # Upload the artifact to Nexus
+  upload_to_nexus:  
       - run:
           name: Upload to Nexus
           command: |
@@ -85,7 +86,7 @@ workflows:
       - sonarQube:
           requires:
             - build
-      - Upload the artifact to Nexus:
+      - upload_to_nexus: 
           requires:
             - sonarQube
             
