@@ -18,13 +18,7 @@ jobs:
       - run:
           name: Build 
           command: CI=false npm run build
-      - run:
-         name: Archive the artifact
-         command: tar -czvf circle-ci-project.tar.gz dist/
-      - persist_to_workspace:
-          root: .
-          paths:
-            - circle-ci-project.tar.gz
+     
                   
   sonarQube:
     executor: node-executor
@@ -42,16 +36,7 @@ jobs:
               -Dsonar.host.url=http://107.22.46.30:9000 \
               -Dsonar.token=$SONAR_TOKEN
               
-  nexus:
-    executor: node-executor
-    steps:
-      - attach_workspace:
-          at: /workspace
-      - run:
-          name: Upload artifact to Nexus
-          command: |
-            curl -v -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file /workspace/circle-ci-project.tar.gz \
-            $NEXUS_URL/repository/$NEXUS_REPOSITORY/circle-ci-project.tar.gz 
+ 
 
 workflows:
   version: 2.1
