@@ -32,7 +32,7 @@ jobs:
             sonar-scanner \
               -Dsonar.projectKey=circle-ci \
               -Dsonar.sources=. \
-              -Dsonar.host.url=http://107.22.46.30:9000 \
+              -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
               
  
