@@ -20,8 +20,8 @@ jobs:
       
        
       - run:
-          name: Install SonarQube Scanner
-          command: npm install -g sonar-scanner
+          name: Install SonarQube Scanner Locally
+          command: npm install sonar-scanner
       - run:
           name: Run SonarQube Analysis
           command: |
