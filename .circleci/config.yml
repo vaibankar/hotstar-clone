@@ -13,8 +13,8 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
-      - run:
-          command: npx update-browserslist-db@latest 
+      # - run:
+      #     command: npx update-browserslist-db@latest 
       - run:
           name: Build 
           command: CI=false npm run build
