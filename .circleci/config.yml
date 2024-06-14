@@ -40,7 +40,7 @@ jobs:
               -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
      
-  upload_to_nexus:     
+   upload_to_nexus:     
     # docker:
     #   - image: sonatype/nexus-cli:latest
     steps:
