@@ -17,22 +17,25 @@ jobs:
       - run:
           name: Build
           command: CI=false npm run build
-      # - run:
-      #     name: Build project
-      #     command: npm run build
-      
+     
+  sonarQube:
+    docker:
+      - image: circleci/node:14.17
+    steps:
+      - checkout
+      - run:
+          name: Install SonarQube Scanner
+          command: npm install -g sonar-scanner
+      - run:
+          name: Run SonarQube Analysis
+          command: |
+            sonar-scanner \
+              -Dsonar.projectKey=circle-ci \
+              -Dsonar.sources=. \
+              -Dsonar.host.url=http://54.158.21.154:9000 \
+              -Dsonar.token=sqp_d84ae14dc3f4c100536493965c2fcc085fc1317a
+              -Dsonar.login=$SONAR_TOKEN
 
-      # - run:
-      #    name: Run SonarQube Analysis
-      #    command: |
-      #      # Download SonarQube Scanner
-      #      curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-      #      unzip sonar-scanner-cli.zip
-      #      export PATH=$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin
-      
-      #      # Run SonarQube Scanner
-      #      sonar-scanner \
-      #        -Dsonar.projectKey=my_node_project \
-      #        -Dsonar.sources=src \
-      #        -Dsonar.host.url=$SONAR_HOST_URL \
-      #        -Dsonar.login=$SONAR_TOKEN
+
+
+            
