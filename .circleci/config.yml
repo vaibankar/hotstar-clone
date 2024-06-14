@@ -16,9 +16,24 @@ jobs:
       # - run:
       #     name: Run test
       #     command: npm test
-      - run:
-          name: Build project
-          command: npx update-browserslist-db@latest
-      - run:
-          name: Build project
-          command: npm run build
+      # - run:
+      #     name: Build project
+      #     command: npx update-browserslist-db@latest
+      # - run:
+      #     name: Build project
+      #     command: npm run build
+      
+       - run:
+          name: Run SonarQube Analysis
+          command: |
+            # Download SonarQube Scanner
+            curl -o sonar-scanner-cli.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+            unzip sonar-scanner-cli.zip
+            export PATH=$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin
+
+            # Run SonarQube Scanner
+            sonar-scanner \
+              -Dsonar.projectKey=my_node_project \
+              -Dsonar.sources=src \
+              -Dsonar.host.url=$SONAR_HOST_URL \
+              -Dsonar.login=$SONAR_TOKEN
