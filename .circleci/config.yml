@@ -36,9 +36,14 @@ jobs:
               -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
          
-  docker_build_and_push: 
+  docker_build_and_push:
+    docker:
+      - image: circleci/node:16    
     steps:
       - checkout
+      - run:
+          name: Docker daemon permission
+          command: sudo chmod 777 /var/run/docker.sock
       - run:
           name: Build Docker Image
           command: docker build -t $DOCKERHUB_USERNAME/hotstar-app .
