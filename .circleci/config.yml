@@ -37,8 +37,8 @@ jobs:
               -Dsonar.token=$SONAR_TOKEN
          
   docker_build_and_push:
-    docker:
-      - image: circleci/node:16    
+    # docker:
+    #   - image: circleci/node:16    
     steps:
       - checkout
     docker_layer_caching: true  
