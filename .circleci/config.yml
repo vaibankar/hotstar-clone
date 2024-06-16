@@ -36,20 +36,17 @@ jobs:
               -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
          
-  docker build and push:
-    docker:
-      - image: circleci/node:16   
-     
+  docker_build_and_push: 
     steps:
       - checkout
       - run:
-         name: Build Docker Image
-         command: docker build -t $DOCKERHUB_USERNAME/hotstar-app .
-               
+          name: Build Docker Image
+          command: docker build -t $DOCKERHUB_USERNAME/hotstar-app .
+              
       - run:
           name: Login to Docker Hub
           command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-         
+          
       - run:
           name: Push Docker Image
           command: docker push $DOCKERHUB_USERNAME/hotstar-app
@@ -63,7 +60,7 @@ workflows:
       - sonarQube:
           requires:
             - build
-      - docker build and push: 
+      - docker_build_and_push: 
           requires:
             - sonarQube
             
