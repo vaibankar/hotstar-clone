@@ -18,17 +18,7 @@ jobs:
           name: Build the project
           command: CI=false npm run build
       
-      # Store the build artifacts
-      - store_artifacts:
-          path: dist/artifacts
-          destination: artifacts    
-      
-      # Install Nexus CLI
-      - run:
-          name: Install Nexus CLI
-          command: |
-            curl -O https://download.sonatype.com/nexus/clm/scanner/cli/nexus-iq-cli-1.106.0-02.jar
-      
+           
                   
   sonarQube:
     executor: node-executor
@@ -45,38 +35,21 @@ jobs:
               -Dsonar.sources=. \
               -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
-  upload_to_nexus:
-     steps:
-       - checkout
-    # Upload the artifact to Nexus
+         
+  docker build and push:  
+    steps:
+      - checkout
       - run:
-          name: Upload to Nexus
-          command: |
-            java -jar nexus-iq-cli-1.106.0-02.jar upload \
-              --repository=$NEXUS_URL/repository/$NEXUS_REPOSITORY/ \
-              --dir="dist/artifacts" \
-              --artifact="bundle.js" \
-              --username=$NEXUS_USERNAME \
-              --password=$NEXUS_PASSWORD \
-              --url=$NEXUS_URL         
- 
-  # upload_to_nexus:
-  #   docker:
-  #     - image: sonatype/nexus-cli:latest
-  #   steps:
-  #     - checkout
-           
-  #     # Upload the artifact to Nexus
-  #     - run:
-  #         name: Upload to Nexus
-  #         command: |
-  #           java -jar nexus-iq-cli-1.106.0-02.jar upload \
-  #             --repository=$NEXUS_URL/repository/$NEXUS_REPOSITORY/ \
-  #             --dir="dist/artifacts" \
-  #             --artifact="bundle.js" \
-  #             --username=$NEXUS_USERNAME \
-  #             --password=$NEXUS_PASSWORD \
-  #             --url=$NEXUS_URL           
+         name: Build Docker Image
+         command: docker build -t $DOCKERHUB_USERNAME/hotstar-app .
+               
+      - run:
+          name: Login to Docker Hub
+          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+         
+      - run:
+          name: Push Docker Image
+          command: docker push $DOCKERHUB_USERNAME/hotstar-app
     
   
 workflows:
@@ -87,7 +60,7 @@ workflows:
       - sonarQube:
           requires:
             - build
-      - upload_to_nexus: 
+      - docker build and push: 
           requires:
             - sonarQube
             
