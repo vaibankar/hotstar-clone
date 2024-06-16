@@ -36,7 +36,10 @@ jobs:
               -Dsonar.host.url=$SONAR_HOST_URL \
               -Dsonar.token=$SONAR_TOKEN
          
-  docker build and push:  
+  docker build and push:
+    docker:
+      - image: circleci/node:16   
+     
     steps:
       - checkout
       - run:
