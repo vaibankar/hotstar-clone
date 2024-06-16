@@ -37,11 +37,12 @@ jobs:
               -Dsonar.token=$SONAR_TOKEN
          
   docker_build_and_push:
+    docker_layer_caching: true    
     # docker:
     #   - image: circleci/node:16    
     steps:
       - checkout
-    docker_layer_caching: true  
+      
       # - run:
       #     name: Docker daemon permission
       #     command: sudo chmod 777 /var/run/docker.sock
