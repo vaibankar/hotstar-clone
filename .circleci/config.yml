@@ -59,7 +59,11 @@ jobs:
       - run:
           name: Push Docker Image
           command: docker push $DOCKERHUB_USERNAME/hotstar-app
-      
+      - run:
+          name: Scan Docker image with Trivy
+          command: |
+            trivy image hotstar-app > trivy_scan.txt
+  
   # install_trivy:
   #   docker:
   #     - image: circleci/node:16
