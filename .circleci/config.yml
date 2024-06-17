@@ -17,11 +17,7 @@ jobs:
       - run:
           name: Build the project
           command: CI=false npm run build
-      - run:
-          name: Install Trivy
-          command: |
-            wget https://github.com/aquasecurity/trivy/releases/download/v0.32.1/trivy_0.32.1_Linux-64bit.deb
-            sudo dpkg -i trivy_0.32.1_Linux-64bit.deb 
+       
            
                   
   sonarQube:
@@ -60,9 +56,14 @@ jobs:
           name: Push Docker Image
           command: docker push $DOCKERHUB_USERNAME/hotstar-app
       - run:
+          name: Install Trivy
+          command: |
+            wget https://github.com/aquasecurity/trivy/releases/download/v0.32.1/trivy_0.32.1_Linux-64bit.deb
+            sudo dpkg -i trivy_0.32.1_Linux-64bit.deb
+      - run:
           name: Scan Docker image with Trivy
           command: |
-            trivy image hotstar-app > trivy_scan.txt
+            trivy image $DOCKERHUB_USERNAME/hotstar-app > trivy_scan.txt
   
   # install_trivy:
   #   docker:
