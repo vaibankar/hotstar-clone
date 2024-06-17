@@ -55,6 +55,12 @@ jobs:
       - run:
           name: Push Docker Image
           command: docker push $DOCKERHUB_USERNAME/hotstar-app
+      
+  trivy_image_scanning:    
+    docker:
+      - image: circleci/node:16    
+    steps:
+      - checkout  
       - run:
           name: Install Trivy
           command: |
@@ -65,16 +71,7 @@ jobs:
           command: |
             trivy image $DOCKERHUB_USERNAME/hotstar-app > trivy_scan.txt
   
-  # install_trivy:
-  #   docker:
-  #     - image: circleci/node:16
-  #   steps:
-  #     - checkout  
-  #     - run:
-  #         name: Install Trivy
-  #         command: |
-  #           wget https://github.com/aquasecurity/trivy/releases/download/v0.32.1/trivy_0.32.1_Linux-64bit.deb
-  #           sudo dpkg -i trivy_0.32.1_Linux-64bit.deb 
+  
   
 workflows:
   version: 2.1
@@ -87,6 +84,6 @@ workflows:
       - docker_build_and_push: 
           requires:
             - sonarQube
-      # - install_trivy:
-      #     requires:          
-      #       - docker_build_and_push            
+      - trivy_image_scanning:
+          requires:          
+            - docker_build_and_push            
