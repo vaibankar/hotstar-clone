@@ -50,7 +50,7 @@ jobs:
               
       - run:
           name: Login to Docker Hub
-          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD --password-stdin
+          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD 
           
       - run:
           name: Push Docker Image
