@@ -55,7 +55,13 @@ jobs:
       - run:
           name: Push Docker Image
           command: docker push $DOCKERHUB_USERNAME/hotstar-app
-    
+      
+  install_trivy:
+      - run:
+          name: Install Trivy
+          command: |
+            wget https://github.com/aquasecurity/trivy/releases/download/v0.32.1/trivy_0.32.1_Linux-64bit.deb
+            sudo dpkg -i trivy_0.32.1_Linux-64bit.deb 
   
 workflows:
   version: 2.1
@@ -68,4 +74,6 @@ workflows:
       - docker_build_and_push: 
           requires:
             - sonarQube
-            
+      - install_trivy:
+          requires:          
+            - docker_build_and_push            
