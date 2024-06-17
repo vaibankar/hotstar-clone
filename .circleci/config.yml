@@ -57,6 +57,8 @@ jobs:
           command: docker push $DOCKERHUB_USERNAME/hotstar-app
       
   install_trivy:
+    docker:
+      - image: circleci/node:16
     steps:
       - checkout  
       - run:
