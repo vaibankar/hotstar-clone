@@ -79,7 +79,7 @@ jobs:
           name: Upload to S3
           command: |
             BUILD_NUMBER=$(circleci env subst "$CIRCLE_BUILD_NUM")
-            aws s3 cp trivy_scan.txt s3://circle-ci-porject/trivy_scan${BUILD_NUMBER}.txt             
+            aws s3 cp trivy_scan.txt s3://circle-ci-porject/trivy_scan${BUILD_NUMBER}.txt              
                                                 
 workflows:
   version: 2.1
