@@ -70,9 +70,13 @@ jobs:
           name: Scan Docker image with Trivy
           command: |
             trivy image $DOCKERHUB_USERNAME/hotstar-app > trivy_scan.txt
-  
-  
-  
+      - run:
+          name: Install AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y awscli           
+                   
+                                                
 workflows:
   version: 2.1
   build_and_analyze:
