@@ -1,3 +1,1 @@
-# DevSecOps With Docker Scout Hotstar Clone
-
-
+## Circle-ci Project
