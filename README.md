@@ -2,7 +2,7 @@
  
  
   <br>
-<a href="https://www.devopsage.com/wp-content/uploads/2020/01/Hypervisor.png">
+<a href="https://i.imgur.com/l9ANtiM.jpeg">
 <img src="./public/assets/netflix-logo.png" alt="Logo" width="100" height="32">
 </a>
 </div>
