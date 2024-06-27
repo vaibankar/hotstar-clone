@@ -2,7 +2,7 @@
  
  
   <br>
-<a href="http://netflix-clone-with-tmdb-using-react-mui.vercel.app/">
+<a href="https://www.devopsage.com/wp-content/uploads/2020/01/Hypervisor.png">
 <img src="./public/assets/netflix-logo.png" alt="Logo" width="100" height="32">
 </a>
 </div>
